@@ -17,7 +17,7 @@ function getAllInputs() {
     return;
   }
   user.surname = inputs.surname.value;
-  user.login = inputs.email.value;
+  user.login = inputs.login.value;
   user.password = inputs.password.value;
 
   sendDataToAPI(user);
