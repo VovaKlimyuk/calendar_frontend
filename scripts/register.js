@@ -4,7 +4,7 @@ const inputs = document.getElementsByTagName("input");
 
 const user = {
   name: '',
-  surname: '',
+  // surname: '',
   login: '',
   password: ''
 };
@@ -16,28 +16,31 @@ function getAllInputs() {
     alert('name is empty');
     return;
   }
-  user.surname = inputs.surname.value;
+  // user.surname = inputs.surname.value;
   user.login = inputs.login.value;
   user.password = inputs.password.value;
 
-  sendDataToAPI(user);
+  sendData(user);
 }
 
-function sendDataToAPI(data) {
-  fetch("http://localhost:8080/register", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  })
-  .then(response => response.json())
-  .then(result => {
-    console.log("API response:", result);
-  })
-  .catch(error => {
-    console.error("API error:", error);
-  });
+function sendData(data) {
+  console.log('Sending data');
+
+  const XHR = new XMLHttpRequest();
+
+  const urlEncodedDataPairs = [];
+
+  for (const [name, value] of Object.entries(data)) {
+    urlEncodedDataPairs.push(`${encodeURIComponent(name)}=${encodeURIComponent(value)}`);
+  }
+
+  const urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
+
+  XHR.open('POST', 'http://localhost:8080/register');
+
+  XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+  XHR.send(urlEncodedData);
 }
 
   const button = document.getElementById('registerButton');
