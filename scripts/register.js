@@ -4,19 +4,18 @@ const inputs = document.getElementsByTagName("input");
 
 const user = {
   name: '',
-  // surname: '',
+  surname: '',
   login: '',
   password: ''
 };
 
 function getAllInputs() {
-
   user.name = (inputs.name.value).trim();
   if (!user.name) {
     alert('name is empty');
     return;
   }
-  // user.surname = inputs.surname.value;
+  user.surname = inputs.surname.value;
   user.login = inputs.login.value;
   user.password = inputs.password.value;
 
@@ -43,10 +42,8 @@ function sendData(data) {
   XHR.send(urlEncodedData);
 }
 
-  const button = document.getElementById('registerButton');
+const button = document.getElementById('registerButton');
 
-  console.log(button);
-
-  button.onclick = () => {
-    getAllInputs();
-  };
+button.onclick = () => {
+  getAllInputs();
+};
